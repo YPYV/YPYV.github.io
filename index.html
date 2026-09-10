@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دليل دمشق وريف دمشق</title>
+<meta name="description" content="الدليل الطبي والحكومي لدمشق وريف دمشق">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="topbar"><span>دليل طبي وحكومي لدمشق وريف دمشق</span><span>بحث سريع • بيانات منظمة • تحديث مستمر</span></div>
+
+<header class="header" id="home"><div class="container">
+<nav class="nav">
+<a class="brand" href="#home"><img class="logo" src="assets/logo.svg" alt="لوقو دليل دمشق وريف دمشق"><div><strong>دليل <span>دمشق</span> وريف دمشق</strong><small>كل ما تحتاجه في مكان واحد</small></div></a>
+<div class="navlinks"><a class="active" href="#home">الرئيسية</a><a href="#directory">الدليل</a><a href="#categories">الأقسام</a><a href="#about">عن الدليل</a></div>
+<div class="nav-tag">● دليل دمشق وريفها</div>
+</nav>
+<section class="hero">
+<div><h1>مرحباً بك في<br><span>دليل دمشق وريف دمشق</span></h1><p>دليلك الشامل لأهم المشافي والمراكز الطبية والدوائر الحكومية، بواجهة واضحة وسريعة وسهلة الاستخدام.</p>
+<div class="search"><input id="heroSearch" placeholder="إبحث عن اسم جهة أو تخصص..." autocomplete="off"><button id="heroBtn">⌕ &nbsp; بحث</button></div></div>
+<div class="hero-card"><img src="assets/logo.svg" alt=""></div>
+</section>
+</div></header>
+
+<main class="container">
+<section class="stats" id="stats"></section>
+
+<section class="panel" id="categories">
+<div class="panel-head"><div><h2 class="title">أقسام الدليل</h2><div class="sub">اختر القسم الذي تبحث عنه</div></div></div>
+<div class="category-grid">
+<button class="category green" data-action="medical"><img src="assets/medical.svg" alt=""><span>الدليل الطبي</span><small>مشافي ومراكز وعيادات</small></button>
+<button class="category blue" data-action="government"><img src="assets/government.svg" alt=""><span>الدليل الحكومي</span><small>وزارات وجهات حكومية</small></button>
+<button class="category green" data-action="labs"><img src="assets/labs.svg" alt=""><span>المخابر والتحاليل</span><small>مخابر وفحوصات</small></button>
+<button class="category blue" data-action="imaging"><img src="assets/imaging.svg" alt=""><span>التصوير الطبي</span><small>تصوير وتشخيص</small></button>
+<button class="category violet" data-action="directorates"><img src="assets/directorates.svg" alt=""><span>المديريات والجهات</span><small>مديريات ومؤسسات</small></button>
+<button class="category orange" data-action="citizens"><img src="assets/citizens.svg" alt=""><span>خدمة المواطنين</span><small>خدمات حكومية</small></button>
+</div>
+<div class="quick" id="quick">اختر أحد الأقسام للوصول إليه مباشرة، أو استخدم البحث للعثور على جهة بسرعة.</div>
+</section>
+
+<section class="panel" id="directory">
+<div class="panel-head"><div><h2 class="title">الجهات في الدليل</h2><div class="sub">المشافي والمراكز والجهات الحكومية تظهر هنا مباشرة</div></div><span class="count" id="count">جاري التحميل...</span></div>
+<div class="filters">
+<input class="field" id="search" placeholder="ابحث بالاسم، المنطقة، الهاتف أو التصنيف..." autocomplete="off">
+<select class="field" id="type"><option value="">النوع: الكل</option><option value="medical">طبي</option><option value="government">حكومي</option></select>
+<select class="field" id="gov"><option value="">المحافظة: الكل</option><option value="دمشق">دمشق</option><option value="ريف دمشق">ريف دمشق</option><option value="دمشق/ريف دمشق">دمشق وريف دمشق معاً</option></select>
+<select class="field" id="verification"><option value="">الحالة: الكل</option><option value="🟢 موثقة">موثقة</option><option value="🟡 تحتاج تحديث">تحتاج تحديث</option></select>
+<button class="clear" id="clear">مسح</button>
+</div>
+<div class="error" id="error"></div>
+<div class="results" id="results"></div>
+</section>
+
+<section class="panel" id="about">
+<div class="panel-head"><div><h2 class="title">عن الدليل</h2><div class="sub">الوضوح والموثوقية أهم من كثرة المعلومات</div></div></div>
+<p class="sub" style="font-size:12px;line-height:1.9">لا يتم ملء المعلومات الناقصة بالتخمين. تظهر حالة التحقق لكل جهة، ويُفضّل مراجعة الهاتف والدوام قبل الاعتماد النهائي.</p>
+</section>
+</main>
+
+<footer class="footer">© 2026 دليل دمشق وريف دمشق</footer>
+
+<div class="modal-bg" id="modal"><div class="modal">
+<div class="modal-head"><h3 id="modalTitle">تفاصيل الجهة</h3><button class="close" id="closeModal">×</button></div>
+<div class="modal-body" id="modalBody"></div>
+</div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
