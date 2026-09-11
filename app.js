@@ -1,4 +1,4 @@
-const API=(location.protocol.startsWith("http") ? `${location.origin}/api` : "http://localhost:3001/api");
+const API="https://dalil-damascus-rif.onrender.com/api";
 const STATIC="data/directory.json";
 const $=id=>document.getElementById(id);
 const state={items:[]};
@@ -13,7 +13,28 @@ const mapUrl=x=>{
 const telUrl=x=>{const p=String(x.phone||"").replace(/[^\d+]/g,"");return p&&p!=="+"?`tel:${p}`:""};
 
 async function loadData(){
-  // First load the bundled JSON. This is reliable on phones and GitHub Pages.
+  // Use the live Render API first so the public site stays connected to the backend.
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 4500);
+    const r = await fetch(`${API}/directory`, {
+      cache: "no-store",
+      signal: controller.signal
+    });
+    clearTimeout(timer);
+    if (!r.ok) throw new Error("API error");
+    const payload = await r.json();
+    const data = Array.isArray(payload) ? payload : payload.data;
+    if (!Array.isArray(data)) throw new Error("Invalid API response");
+    state.items = data;
+    updateStats();
+    render();
+    return;
+  } catch (e) {
+    console.warn("Backend unavailable, using bundled data:", e);
+  }
+
+  // Static fallback keeps GitHub Pages usable even if Render is sleeping or unavailable.
   try {
     const local = await fetch(STATIC, { cache: "no-store" });
     if (local.ok) {
@@ -29,28 +50,11 @@ async function loadData(){
     console.warn("Static data unavailable:", e);
   }
 
-  // Optional backend fallback.
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 3500);
-    const r = await fetch(`${API}/directory`, {
-      cache: "no-store",
-      signal: controller.signal
-    });
-    clearTimeout(timer);
-    if (!r.ok) throw new Error("API error");
-    const payload = await r.json();
-    state.items = Array.isArray(payload) ? payload : (payload.data || []);
-    updateStats();
-    render();
-  } catch (e) {
-    console.warn("Backend unavailable:", e);
-    state.items = [];
-    updateStats();
-    render();
-    $("error").style.display = "block";
-    $("error").textContent = "تعذر تحميل بيانات الدليل. تحقق من تشغيل السيرفر أو ملف البيانات.";
-  }
+  state.items = [];
+  updateStats();
+  render();
+  $("error").style.display = "block";
+  $("error").textContent = "تعذر تحميل بيانات الدليل. حاول تحديث الصفحة لاحقاً.";
 }
 function updateStats(){
   const d=state.items;
