@@ -30,7 +30,7 @@ function render(){
   const arr=filtered();$("count").textContent=`${arr.length} نتيجة`;
   if(!arr.length){$("results").innerHTML=`<div class="empty">لا توجد نتائج مطابقة. جرّب تغيير البحث أو الفلاتر.</div>`;return}
   $("results").innerHTML=arr.map(x=>{const ok=String(x.verification).includes("🟢"),map=mapUrl(x);
-    return `<article class="card" data-type="${x.type}"><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}">${esc(x.verification)}</span></div>
+    return `<article class="card" data-type="${x.type}"><div class="card-cover"><img src="assets/cover-${x.type}.svg" alt=""></div><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}">${esc(x.verification)}</span></div>
     <h3>${esc(x.name)}</h3><div class="meta">
     <div class="meta-line"><span class="meta-ico">◉</span>${esc(x.category)}</div>
     <div class="meta-line"><span class="meta-ico">⌖</span>${esc(x.governorate)}</div>
@@ -53,6 +53,13 @@ function categoryFilter(action,button){
 }
 document.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>categoryFilter(b.dataset.action,b)));
 $("results").addEventListener("click",e=>{const b=e.target.closest(".detail-btn");if(b)showDetail(b.dataset.id)});
+$("results").addEventListener("click",e=>{
+  if(e.target.closest("button"))return;
+  const card=e.target.closest(".card");if(!card)return;
+  const already=card.classList.contains("show-cover");
+  document.querySelectorAll(".card.show-cover").forEach(c=>c.classList.remove("show-cover"));
+  if(!already)card.classList.add("show-cover");
+});
 ["search","type","gov","verification"].forEach(id=>$(id).addEventListener("input",render));
 ["type","gov","verification"].forEach(id=>$(id).addEventListener("change",render));
 $("heroBtn").addEventListener("click",()=>{$("search").value=$("heroSearch").value;render();$("directory").scrollIntoView({behavior:"smooth"})});

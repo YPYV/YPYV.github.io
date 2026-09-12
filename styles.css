@@ -62,8 +62,12 @@ main{margin-top:-58px;position:relative;z-index:2;padding-bottom:35px}
 .clear:hover{border-color:var(--brass)}
 
 .results{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:18px}
-.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px;min-height:246px;border-right:4px solid var(--teal)}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px;min-height:246px;border-right:4px solid var(--teal);position:relative;overflow:hidden;isolation:isolate}
 .card[data-type="government"]{border-right-color:var(--deep)}
+.card-cover{position:absolute;top:0;left:0;right:0;bottom:56px;z-index:2;opacity:0;transform:scale(1.05);transition:opacity .28s ease,transform .28s ease;pointer-events:none;border-radius:13px 13px 0 0;overflow:hidden}
+.card-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.card:hover .card-cover,.card.show-cover .card-cover{opacity:1;transform:scale(1)}
+@media(hover:none){.card-cover{transition-duration:.2s}}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.chip{background:var(--stone2);color:var(--deep);border-radius:8px;padding:5px 9px;font-size:11px;font-weight:700}.badge{padding:5px 9px;border-radius:8px;font-size:11px;font-weight:700}.ok{background:var(--sage-bg);color:var(--sage)}.warn{background:var(--ember-bg);color:var(--ember)}
 .card h3{font-size:17px;line-height:1.45;color:var(--deep);margin:12px 0 9px;font-family:"Amiri",serif;font-weight:700}.meta{display:grid;gap:5px;color:#4E534F;font-size:12px;line-height:1.75}.meta-line{display:flex;gap:7px}.meta-ico{width:17px;text-align:center;color:var(--brass)}
 .card-foot{border-top:1px solid var(--line);margin-top:12px;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:8px}.source{font-size:10px;color:#9A9082;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.map-btn{border:0;background:var(--stone2);color:var(--teal);padding:7px 10px;border-radius:8px;font-size:11px;font-weight:700}

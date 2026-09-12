@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+<defs>
+<linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#163B3E"/><stop offset="1" stop-color="#0C2426"/></linearGradient>
+</defs>
+<rect width="400" height="260" fill="url(#sky2)"/>
+<g opacity=".5" stroke="#E9DDBB" stroke-width="1">
+<path d="M200 30 L236 52 L236 96 L200 118 L164 96 L164 52 Z"/>
+</g>
+<rect x="0" y="196" width="400" height="64" fill="#0F2C2E"/>
+<path d="M84 116 L200 66 L316 116 Z" fill="#EFE6D4"/>
+<rect x="88" y="116" width="224" height="14" fill="#EFE6D4"/>
+<g fill="#EFE6D4">
+<rect x="100" y="134" width="16" height="62"/><rect x="140" y="134" width="16" height="62"/>
+<rect x="180" y="134" width="16" height="62"/><rect x="220" y="134" width="16" height="62"/>
+<rect x="260" y="134" width="16" height="62"/><rect x="300" y="134" width="16" height="62"/>
+</g>
+<g fill="#B08A3E"><rect x="100" y="134" width="16" height="8"/><rect x="140" y="134" width="16" height="8"/><rect x="180" y="134" width="16" height="8"/><rect x="220" y="134" width="16" height="8"/><rect x="260" y="134" width="16" height="8"/><rect x="300" y="134" width="16" height="8"/></g>
+<rect x="70" y="196" width="260" height="10" fill="#B08A3E"/>
+<text x="200" y="238" text-anchor="middle" fill="#EFE6D4" font-family="Tajawal,Arial" font-size="16" font-weight="700">جهة حكومية</text>
+</svg>

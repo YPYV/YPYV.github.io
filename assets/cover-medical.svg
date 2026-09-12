@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1F5C54"/><stop offset="1" stop-color="#163B3E"/></linearGradient>
+</defs>
+<rect width="400" height="260" fill="url(#sky)"/>
+<g opacity=".5" stroke="#E9DDBB" stroke-width="1">
+<circle cx="340" cy="55" r="34"/><circle cx="340" cy="55" r="46"/>
+</g>
+<rect x="0" y="176" width="400" height="84" fill="#0F2C2E"/>
+<rect x="70" y="96" width="260" height="90" rx="4" fill="#EFE6D4"/>
+<rect x="90" y="70" width="90" height="26" rx="3" fill="#EFE6D4"/>
+<g fill="#0C2426">
+<rect x="92" y="112" width="26" height="26" rx="2"/><rect x="132" y="112" width="26" height="26" rx="2"/>
+<rect x="242" y="112" width="26" height="26" rx="2"/><rect x="282" y="112" width="26" height="26" rx="2"/>
+<rect x="172" y="150" width="56" height="36" rx="2"/>
+</g>
+<g fill="#B08A3E"><rect x="98" y="118" width="14" height="14"/><rect x="138" y="118" width="14" height="14"/><rect x="248" y="118" width="14" height="14"/><rect x="288" y="118" width="14" height="14"/></g>
+<g stroke="#A64B3A" stroke-width="10" stroke-linecap="round"><path d="M200 42v34M183 59h34"/></g>
+<text x="200" y="230" text-anchor="middle" fill="#EFE6D4" font-family="Tajawal,Arial" font-size="16" font-weight="700">جهة طبية</text>
+</svg>
