@@ -1,60 +1,21 @@
-const API="https://dalil-damascus-rif.onrender.com/api";
+
+const API="http://localhost:3001/api";
 const STATIC="data/directory.json";
 const $=id=>document.getElementById(id);
 const state={items:[]};
 
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-const mapUrl=x=>{
-  const q=x.mapQuery&&x.mapQuery!=="غير متوفر"?x.mapQuery:
-    (x.plusCode&&x.plusCode!=="غير متوفر"?`${x.plusCode}, ${x.governorate||""}, سوريا`:
-    `${x.name||""}, ${x.address||""}, ${x.governorate||""}, سوريا`);
-  return q.trim()?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`:"";
-};
+const mapUrl=x=>x.plusCode&&x.plusCode!=="غير متوفر"?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.plusCode)}`:"";
 const telUrl=x=>{const p=String(x.phone||"").replace(/[^\d+]/g,"");return p&&p!=="+"?`tel:${p}`:""};
 
 async function loadData(){
-  // Use the live Render API first so the public site stays connected to the backend.
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4500);
-    const r = await fetch(`${API}/directory`, {
-      cache: "no-store",
-      signal: controller.signal
-    });
-    clearTimeout(timer);
-    if (!r.ok) throw new Error("API error");
-    const payload = await r.json();
-    const data = Array.isArray(payload) ? payload : payload.data;
-    if (!Array.isArray(data)) throw new Error("Invalid API response");
-    state.items = data;
-    updateStats();
-    render();
-    return;
-  } catch (e) {
-    console.warn("Backend unavailable, using bundled data:", e);
+  const isLocal=["localhost","127.0.0.1"].includes(location.hostname);
+  try{
+    if(!isLocal)throw 0;
+    const r=await fetch(`${API}/directory`);if(!r.ok)throw 0;state.items=(await r.json()).data||[]
   }
-
-  // Static fallback keeps GitHub Pages usable even if Render is sleeping or unavailable.
-  try {
-    const local = await fetch(STATIC, { cache: "no-store" });
-    if (local.ok) {
-      const data = await local.json();
-      if (Array.isArray(data)) {
-        state.items = data;
-        updateStats();
-        render();
-        return;
-      }
-    }
-  } catch (e) {
-    console.warn("Static data unavailable:", e);
-  }
-
-  state.items = [];
-  updateStats();
-  render();
-  $("error").style.display = "block";
-  $("error").textContent = "تعذر تحميل بيانات الدليل. حاول تحديث الصفحة لاحقاً.";
+  catch{const r=await fetch(STATIC);if(!r.ok)throw new Error("تعذر تحميل البيانات");state.items=await r.json()}
+  updateStats();render();
 }
 function updateStats(){
   const d=state.items;
@@ -63,13 +24,13 @@ function updateStats(){
 }
 function filtered(){
   const q=$("search").value.trim().toLowerCase(),type=$("type").value,gov=$("gov").value,ver=$("verification").value;
-  return state.items.filter(x=>{const hay=[x.name,x.category,x.governorate,x.address,x.phone,x.plusCode,x.mapQuery].join(" ").toLowerCase();return(!q||hay.includes(q))&&(!type||x.type===type)&&(!gov||x.governorate===gov)&&(!ver||x.verification===ver)})
+  return state.items.filter(x=>{const hay=[x.name,x.category,x.governorate,x.address,x.phone].join(" ").toLowerCase();return(!q||hay.includes(q))&&(!type||x.type===type)&&(!gov||x.governorate===gov)&&(!ver||x.verification===ver)})
 }
 function render(){
   const arr=filtered();$("count").textContent=`${arr.length} نتيجة`;
   if(!arr.length){$("results").innerHTML=`<div class="empty">لا توجد نتائج مطابقة. جرّب تغيير البحث أو الفلاتر.</div>`;return}
   $("results").innerHTML=arr.map(x=>{const ok=String(x.verification).includes("🟢"),map=mapUrl(x);
-    return `<article class="card"><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}">${esc(x.verification)}</span></div>
+    return `<article class="card" data-type="${x.type}"><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}">${esc(x.verification)}</span></div>
     <h3>${esc(x.name)}</h3><div class="meta">
     <div class="meta-line"><span class="meta-ico">◉</span>${esc(x.category)}</div>
     <div class="meta-line"><span class="meta-ico">⌖</span>${esc(x.governorate)}</div>
@@ -114,4 +75,4 @@ function showDetail(id){
   <div class="actions">${telUrl(x)?`<a class="action call" href="${telUrl(x)}">☎ اتصال</a>`:""}${mapUrl(x)?`<a class="action map" href="${mapUrl(x)}" target="_blank" rel="noopener">⌖ فتح الخريطة</a>`:""}</div>`;
   $("modal").classList.add("open");
 }
-loadData();
+loadData().catch(()=>{$("error").style.display="block";$("error").textContent="تعذر تحميل الدليل. تحقق من ملفات البيانات."});
