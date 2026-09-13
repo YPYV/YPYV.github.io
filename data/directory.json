@@ -451,7 +451,7 @@
     "phone": "0112119400",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -464,20 +464,7 @@
     "phone": "0114448400",
     "plusCode": "G744+2MG",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
-    "source": "ملف الدليل"
-  },
-  {
-    "id": 37,
-    "name": "وزارة الاقتصاد والتجارة الخارجية",
-    "type": "government",
-    "category": "وزارة",
-    "governorate": "دمشق",
-    "address": "ساحة يوسف العظمة",
-    "phone": "0113341400",
-    "plusCode": "غير متوفر",
-    "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -490,7 +477,7 @@
     "phone": "0112214100",
     "plusCode": "G7CW+PV5",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -503,7 +490,7 @@
     "phone": "0112224000",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -516,12 +503,12 @@
     "phone": "0113333600",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
     "id": 41,
-    "name": "وزارة الكهرباء",
+    "name": "وزارة الطاقة",
     "type": "government",
     "category": "وزارة",
     "governorate": "دمشق",
@@ -529,20 +516,7 @@
     "phone": "0112128300",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
-    "source": "ملف الدليل"
-  },
-  {
-    "id": 42,
-    "name": "وزارة النفط والثروة المعدنية",
-    "type": "government",
-    "category": "وزارة",
-    "governorate": "دمشق",
-    "address": "طريق المطار الدولي",
-    "phone": "0115160400",
-    "plusCode": "غير متوفر",
-    "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -568,12 +542,12 @@
     "phone": "0112245104",
     "plusCode": "G77R+6WM",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
     "id": 45,
-    "name": "وزارة الإدارة المحلية",
+    "name": "وزارة الإدارة المحلية والبيئة",
     "type": "government",
     "category": "وزارة",
     "governorate": "دمشق",
@@ -581,7 +555,7 @@
     "phone": "0112145700",
     "plusCode": "G73J+X9R",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -594,7 +568,7 @@
     "phone": "113134651",
     "plusCode": "G695+872",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -607,33 +581,20 @@
     "phone": "غير متوفر",
     "plusCode": "G882+X7G",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
-    "source": "ملف الدليل"
-  },
-  {
-    "id": 48,
-    "name": "وزارة الاقتصاد والصناعة - الإدارة العامة للصناعة",
-    "type": "government",
-    "category": "جهة حكومية",
-    "governorate": "دمشق",
-    "address": "ساحة عبدالرحمن الداخل",
-    "phone": "غير متوفر",
-    "plusCode": "G76G+82M",
-    "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
     "id": 49,
-    "name": "وزارة الاقتصاد والتجارة الداخلية",
+    "name": "وزارة الاقتصاد والصناعة",
     "type": "government",
-    "category": "جهة حكومية",
+    "category": "وزارة",
     "governorate": "دمشق",
     "address": "قتيبة بن مسلم الباهلي",
     "phone": "غير متوفر",
     "plusCode": "G8W4+4W8",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -997,7 +958,7 @@
     "phone": "غير متوفر",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -1010,7 +971,7 @@
     "phone": "غير متوفر",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   },
   {
@@ -1023,7 +984,33 @@
     "phone": "غير متوفر",
     "plusCode": "غير متوفر",
     "hours": "غير متوفر",
-    "verification": "🟢 موثقة",
+    "verification": "🟡 تحتاج تحديث",
+    "source": "ملف الدليل"
+  },
+  {
+    "id": 80,
+    "name": "وزارة الطوارئ والكوارث",
+    "type": "government",
+    "category": "وزارة",
+    "governorate": "دمشق",
+    "address": "غير متوفر",
+    "phone": "غير متوفر",
+    "plusCode": "غير متوفر",
+    "hours": "غير متوفر",
+    "verification": "🟡 تحتاج تحديث",
+    "source": "ملف الدليل"
+  },
+  {
+    "id": 81,
+    "name": "وزارة الشباب والرياضة",
+    "type": "government",
+    "category": "وزارة",
+    "governorate": "دمشق",
+    "address": "غير متوفر",
+    "phone": "غير متوفر",
+    "plusCode": "غير متوفر",
+    "hours": "غير متوفر",
+    "verification": "🟡 تحتاج تحديث",
     "source": "ملف الدليل"
   }
 ]

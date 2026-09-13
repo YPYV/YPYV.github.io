@@ -37,7 +37,7 @@ function render(){
     <div class="meta-line"><span class="meta-ico">▣</span>${esc(x.address)}</div>
     <div class="meta-line"><span class="meta-ico">☎</span>${esc(x.phone)}</div>
     ${x.hours&&x.hours!=="غير متوفر"?`<div class="meta-line"><span class="meta-ico">◷</span>${esc(x.hours)}</div>`:""}
-    </div><div class="card-foot"><span class="source">${esc(x.source)}</span><div style="display:flex;gap:6px"><button class="map-btn detail-btn" data-id="${x.id}">التفاصيل</button>${map?`<button class="map-btn" onclick="window.open('${map}','_blank','noopener')">الخريطة</button>`:""}</div></div></article>`
+    </div><div class="card-foot"><span class="source">${esc(x.source)}</span><div style="display:flex;gap:6px"><button class="map-btn share-btn" data-id="${x.id}" title="مشاركة عبر واتساب">↗</button><button class="map-btn detail-btn" data-id="${x.id}">التفاصيل</button>${map?`<button class="map-btn" onclick="window.open('${map}','_blank','noopener')">الخريطة</button>`:""}</div></div></article>`
   }).join("");
 }
 function categoryFilter(action,button){
@@ -53,6 +53,12 @@ function categoryFilter(action,button){
 }
 document.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>categoryFilter(b.dataset.action,b)));
 $("results").addEventListener("click",e=>{const b=e.target.closest(".detail-btn");if(b)showDetail(b.dataset.id)});
+$("results").addEventListener("click",e=>{
+  const b=e.target.closest(".share-btn");if(!b)return;
+  const x=state.items.find(a=>a.id===Number(b.dataset.id));if(!x)return;
+  const lines=[x.name,x.category,x.address&&x.address!=="غير متوفر"?"العنوان: "+x.address:"",x.phone&&x.phone!=="غير متوفر"?"الهاتف: "+x.phone:"","— عبر دليل دمشق وريف دمشق"].filter(Boolean).join("\n");
+  window.open("https://wa.me/?text="+encodeURIComponent(lines),"_blank","noopener");
+});
 $("results").addEventListener("click",e=>{
   if(e.target.closest("button"))return;
   const card=e.target.closest(".card");if(!card)return;
@@ -79,7 +85,13 @@ function showDetail(id){
   <div class="detail"><div class="detail-label">الهاتف</div><div class="detail-value">${esc(x.phone)}</div></div>
   <div class="detail"><div class="detail-label">العنوان</div><div class="detail-value">${esc(x.address)}</div></div>
   <div class="detail"><div class="detail-label">الدوام</div><div class="detail-value">${esc(x.hours)}</div></div></div>
-  <div class="actions">${telUrl(x)?`<a class="action call" href="${telUrl(x)}">☎ اتصال</a>`:""}${mapUrl(x)?`<a class="action map" href="${mapUrl(x)}" target="_blank" rel="noopener">⌖ فتح الخريطة</a>`:""}</div>`;
+  <div class="actions">${telUrl(x)?`<a class="action call" href="${telUrl(x)}">☎ اتصال</a>`:""}${mapUrl(x)?`<a class="action map" href="${mapUrl(x)}" target="_blank" rel="noopener">⌖ فتح الخريطة</a>`:""}<button class="action map copy-btn" type="button">⧉ نسخ المعلومات</button></div>`;
+  const cb=$("modalBody").querySelector(".copy-btn");
+  if(cb)cb.addEventListener("click",()=>{
+    const text=[x.name,x.category,x.address&&x.address!=="غير متوفر"?"العنوان: "+x.address:"",x.phone&&x.phone!=="غير متوفر"?"الهاتف: "+x.phone:"",x.hours&&x.hours!=="غير متوفر"?"الدوام: "+x.hours:""].filter(Boolean).join("\n");
+    navigator.clipboard&&navigator.clipboard.writeText(text).then(()=>{cb.textContent="✓ تم النسخ";setTimeout(()=>cb.textContent="⧉ نسخ المعلومات",1600)});
+  });
   $("modal").classList.add("open");
 }
 loadData().catch(()=>{$("error").style.display="block";$("error").textContent="تعذر تحميل الدليل. تحقق من ملفات البيانات."});
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});}
