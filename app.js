@@ -15,34 +15,45 @@ async function loadData(){
     const r=await fetch(`${API}/directory`);if(!r.ok)throw 0;state.items=(await r.json()).data||[]
   }
   catch{const r=await fetch(STATIC);if(!r.ok)throw new Error("تعذر تحميل البيانات");state.items=await r.json()}
-  updateStats();render();
+  populateCategoryFilter();updateStats();render();
+}
+function populateCategoryFilter(){
+  const cats=[...new Set(state.items.map(x=>x.category).filter(Boolean))].sort((a,b)=>a.localeCompare("ar"));
+  $("category").innerHTML=`<option value="">التصنيف: الكل</option>`+cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
 }
 function updateStats(){
   const d=state.items;
-  const cards=[["📍","إجمالي الجهات",d.length,"#EAF2F7"],["🏥","الجهات الطبية",d.filter(x=>x.type==="medical").length,"#EAF8F5"],["🏛️","الجهات الحكومية",d.filter(x=>x.type==="government").length,"#EEF7FE"],["✓","الجهات الموثقة",d.filter(x=>String(x.verification).includes("🟢")).length,"#FFF5E8"]];
-  $("stats").innerHTML=cards.map(c=>`<div class="stat"><div class="stat-head"><span class="stat-icon" style="background:${c[3]}">${c[0]}</span>${c[1]}</div><div class="stat-val">${c[2]}</div></div>`).join("");
+  const cards=[
+    ["📍","إجمالي الجهات",d.length,"","",""],
+    ["🏥","الجهات الطبية",d.filter(x=>x.type==="medical").length,"type","medical",""],
+    ["🏛️","الجهات الحكومية",d.filter(x=>x.type==="government").length,"type","government",""],
+    ["✓","الجهات الموثقة",d.filter(x=>String(x.verification).includes("🟢")).length,"verification","🟢 موثقة",""]
+  ];
+  $("stats").innerHTML=cards.map(c=>`<button type="button" class="stat" data-filter-field="${c[3]}" data-filter-value="${esc(c[4])}" aria-label="فلترة حسب ${esc(c[1])}"><div class="stat-head"><span class="stat-icon">${c[0]}</span>${c[1]}</div><div class="stat-val">${c[2]}</div></button>`).join("");
 }
 function filtered(){
-  const q=$("search").value.trim().toLowerCase(),type=$("type").value,gov=$("gov").value,ver=$("verification").value;
-  return state.items.filter(x=>{const hay=[x.name,x.category,x.governorate,x.address,x.phone].join(" ").toLowerCase();return(!q||hay.includes(q))&&(!type||x.type===type)&&(!gov||x.governorate===gov)&&(!ver||x.verification===ver)})
+  const q=$("search").value.trim().toLowerCase(),type=$("type").value,cat=$("category").value,gov=$("gov").value,ver=$("verification").value;
+  return state.items.filter(x=>{
+    const typeLabel=x.type==="medical"?"طبي":"حكومي";
+    const hay=[x.name,x.category,x.governorate,x.address,x.phone,typeLabel].join(" ").toLowerCase();
+    return(!q||hay.includes(q))&&(!type||x.type===type)&&(!cat||x.category===cat)&&(!gov||x.governorate===gov)&&(!ver||x.verification===ver)
+  })
 }
 function render(){
-  const arr=filtered();$("count").textContent=`${arr.length} نتيجة`;
-  if(!arr.length){$("results").innerHTML=`<div class="empty">لا توجد نتائج مطابقة. جرّب تغيير البحث أو الفلاتر.</div>`;return}
+  const arr=filtered();
+  $("count").textContent=`عرض ${arr.length} من أصل ${state.items.length} منشأة`;
+  if(!arr.length){$("results").innerHTML=`<div class="empty">لم نجد منشآت مطابقة لبحثك.</div>`;return}
   $("results").innerHTML=arr.map(x=>{const ok=String(x.verification).includes("🟢"),map=mapUrl(x);
-    return `<article class="card" data-type="${x.type}"><div class="card-cover"><img src="assets/cover-${x.type}.svg" alt=""></div><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}">${esc(x.verification)}</span></div>
+    return `<article class="card" data-type="${x.type}"><div class="card-cover"><img src="assets/cover-${x.type}.svg" alt=""></div><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}" title="${ok?"تم التحقق من المعلومات":"المعلومات بحاجة إلى مراجعة"}">${esc(x.verification)}</span></div>
     <h3>${esc(x.name)}</h3><div class="meta">
     <div class="meta-line"><span class="meta-ico">◉</span>${esc(x.category)}</div>
     <div class="meta-line"><span class="meta-ico">⌖</span>${esc(x.governorate)}</div>
-    <div class="meta-line"><span class="meta-ico">▣</span>${esc(x.address)}</div>
-    <div class="meta-line"><span class="meta-ico">☎</span>${esc(x.phone)}</div>
-    ${x.hours&&x.hours!=="غير متوفر"?`<div class="meta-line"><span class="meta-ico">◷</span>${esc(x.hours)}</div>`:""}
-    </div><div class="card-foot"><span class="source">${esc(x.source)}</span><div style="display:flex;gap:6px"><button class="map-btn share-btn" data-id="${x.id}" title="مشاركة عبر واتساب">↗</button><button class="map-btn detail-btn" data-id="${x.id}">التفاصيل</button>${map?`<button class="map-btn" onclick="window.open('${map}','_blank','noopener')">الخريطة</button>`:""}</div></div></article>`
+    </div><div class="card-foot"><span class="source">${esc(x.source)}</span><div style="display:flex;gap:6px"><button class="map-btn share-btn" data-id="${x.id}" aria-label="مشاركة عبر واتساب" title="مشاركة عبر واتساب">↗</button><button class="map-btn detail-btn" data-id="${x.id}">عرض التفاصيل</button>${map?`<button class="map-btn" onclick="window.open('${map}','_blank','noopener')" aria-label="فتح الموقع على الخريطة">الخريطة</button>`:""}</div></div></article>`
   }).join("");
 }
 function categoryFilter(action,button){
   document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));button.classList.add("active");
-  const note=$("quick");
+  const note=$("quick");$("category").value="";
   if(action==="medical"){$("type").value="medical";$("search").value="";note.textContent="عرض جميع الجهات الطبية والمراكز الصحية."}
   if(action==="government"){$("type").value="government";$("search").value="";note.textContent="عرض جميع الجهات والوزارات الحكومية."}
   if(action==="labs"){$("type").value="medical";$("search").value="مخبر";note.textContent="فلترة المرافق الطبية للمخابر والتحاليل."}
@@ -52,6 +63,13 @@ function categoryFilter(action,button){
   render();$("directory").scrollIntoView({behavior:"smooth",block:"start"});
 }
 document.querySelectorAll("[data-action]").forEach(b=>b.addEventListener("click",()=>categoryFilter(b.dataset.action,b)));
+$("stats").addEventListener("click",e=>{
+  const b=e.target.closest(".stat");if(!b)return;
+  const field=b.dataset.filterField;
+  if(!field){$("type").value="";$("verification").value=""}
+  else{$(field).value=b.dataset.filterValue}
+  render();$("directory").scrollIntoView({behavior:"smooth",block:"start"});
+});
 $("results").addEventListener("click",e=>{const b=e.target.closest(".detail-btn");if(b)showDetail(b.dataset.id)});
 $("results").addEventListener("click",e=>{
   const b=e.target.closest(".share-btn");if(!b)return;
@@ -66,12 +84,12 @@ $("results").addEventListener("click",e=>{
   document.querySelectorAll(".card.show-cover").forEach(c=>c.classList.remove("show-cover"));
   if(!already)card.classList.add("show-cover");
 });
-["search","type","gov","verification"].forEach(id=>$(id).addEventListener("input",render));
-["type","gov","verification"].forEach(id=>$(id).addEventListener("change",render));
+["search","type","category","gov","verification"].forEach(id=>$(id).addEventListener("input",render));
+["type","category","gov","verification"].forEach(id=>$(id).addEventListener("change",render));
 $("heroBtn").addEventListener("click",()=>{$("search").value=$("heroSearch").value;render();$("directory").scrollIntoView({behavior:"smooth"})});
 $("heroSearch").addEventListener("keydown",e=>{if(e.key==="Enter")$("heroBtn").click()});
 $("heroSearch").addEventListener("input",()=>{$("search").value=$("heroSearch").value;render()});
-$("clear").addEventListener("click",()=>{["search","heroSearch"].forEach(id=>$(id).value="");["type","gov","verification"].forEach(id=>$(id).value="");document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));$("quick").textContent="اختر أحد الأقسام للوصول إليه مباشرة.";render()});
+$("clear").addEventListener("click",()=>{["search","heroSearch"].forEach(id=>$(id).value="");["type","category","gov","verification"].forEach(id=>$(id).value="");document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));$("quick").textContent="اختر أحد الأقسام للوصول إليه مباشرة.";render()});
 $("closeModal").addEventListener("click",()=>$("modal").classList.remove("open"));
 $("modal").addEventListener("click",e=>{if(e.target.id==="modal")$("modal").classList.remove("open")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("modal").classList.remove("open")});
@@ -84,8 +102,10 @@ function showDetail(id){
   <div class="detail"><div class="detail-label">المحافظة</div><div class="detail-value">${esc(x.governorate)}</div></div>
   <div class="detail"><div class="detail-label">الهاتف</div><div class="detail-value">${esc(x.phone)}</div></div>
   <div class="detail"><div class="detail-label">العنوان</div><div class="detail-value">${esc(x.address)}</div></div>
-  <div class="detail"><div class="detail-label">الدوام</div><div class="detail-value">${esc(x.hours)}</div></div></div>
-  <div class="actions">${telUrl(x)?`<a class="action call" href="${telUrl(x)}">☎ اتصال</a>`:""}${mapUrl(x)?`<a class="action map" href="${mapUrl(x)}" target="_blank" rel="noopener">⌖ فتح الخريطة</a>`:""}<button class="action map copy-btn" type="button">⧉ نسخ المعلومات</button></div>`;
+  <div class="detail"><div class="detail-label">الدوام</div><div class="detail-value">${esc(x.hours)}</div></div>
+  <div class="detail"><div class="detail-label">حالة التوثيق</div><div class="detail-value">${esc(x.verification)}</div></div>
+  <div class="detail"><div class="detail-label">المصدر</div><div class="detail-value">${esc(x.source)}</div></div></div>
+  <div class="actions">${telUrl(x)?`<a class="action call" href="${telUrl(x)}">☎ اتصال</a>`:""}${mapUrl(x)?`<a class="action map" href="${mapUrl(x)}" target="_blank" rel="noopener">📍 فتح الموقع على الخريطة</a>`:""}<button class="action map copy-btn" type="button">⧉ نسخ المعلومات</button></div>`;
   const cb=$("modalBody").querySelector(".copy-btn");
   if(cb)cb.addEventListener("click",()=>{
     const text=[x.name,x.category,x.address&&x.address!=="غير متوفر"?"العنوان: "+x.address:"",x.phone&&x.phone!=="غير متوفر"?"الهاتف: "+x.phone:"",x.hours&&x.hours!=="غير متوفر"?"الدوام: "+x.hours:""].filter(Boolean).join("\n");

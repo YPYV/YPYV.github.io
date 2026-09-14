@@ -1,20 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
 <defs>
-<linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#163B3E"/><stop offset="1" stop-color="#0C2426"/></linearGradient>
+<linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+  <stop stop-color="#0A2022"/><stop offset=".6" stop-color="#163B3E"/><stop offset="1" stop-color="#1C4A48"/>
+</linearGradient>
+<linearGradient id="faceG" x1="0" y1="0" x2="0" y2="1">
+  <stop stop-color="#F5EFDE"/><stop offset="1" stop-color="#E4D6B8"/>
+</linearGradient>
+<linearGradient id="colG" x1="0" y1="0" x2="1" y2="0">
+  <stop stop-color="#E4D6B8"/><stop offset=".5" stop-color="#F5EFDE"/><stop offset="1" stop-color="#D9C69F"/>
+</linearGradient>
+<radialGradient id="groundG" cx=".5" cy=".5" r=".5">
+  <stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+</radialGradient>
 </defs>
-<rect width="400" height="260" fill="url(#sky2)"/>
-<g opacity=".5" stroke="#E9DDBB" stroke-width="1">
-<path d="M200 30 L236 52 L236 96 L200 118 L164 96 L164 52 Z"/>
+
+<rect width="400" height="260" fill="url(#skyG)"/>
+<g opacity=".35" stroke="#E9DDBB" stroke-width="1">
+<path d="M200 24 L234 44 L234 84 L200 104 L166 84 L166 44 Z"/>
+<path d="M200 24 L200 104 M166 44 L234 84 M166 84 L234 44"/>
 </g>
-<rect x="0" y="196" width="400" height="64" fill="#0F2C2E"/>
-<path d="M84 116 L200 66 L316 116 Z" fill="#EFE6D4"/>
-<rect x="88" y="116" width="224" height="14" fill="#EFE6D4"/>
-<g fill="#EFE6D4">
-<rect x="100" y="134" width="16" height="62"/><rect x="140" y="134" width="16" height="62"/>
-<rect x="180" y="134" width="16" height="62"/><rect x="220" y="134" width="16" height="62"/>
-<rect x="260" y="134" width="16" height="62"/><rect x="300" y="134" width="16" height="62"/>
+<rect x="0" y="206" width="400" height="2" fill="#B08A3E" opacity=".55"/>
+<rect x="0" y="208" width="400" height="52" fill="#0A2022"/>
+<ellipse cx="200" cy="214" rx="160" ry="12" fill="url(#groundG)"/>
+
+<path d="M78 112 L200 58 L322 112 Z" fill="url(#faceG)"/>
+<path d="M78 112 L200 58 L322 112" fill="none" stroke="#1F5C54" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="200" cy="82" r="9" fill="#B08A3E"/>
+
+<rect x="82" y="112" width="236" height="16" fill="url(#faceG)"/>
+<rect x="82" y="126" width="236" height="4" fill="#1F5C54"/>
+
+<g>
+<rect x="96" y="132" width="18" height="70" fill="url(#colG)"/><rect x="96" y="132" width="18" height="7" fill="#B08A3E"/><rect x="96" y="195" width="18" height="7" fill="#B08A3E"/>
+<rect x="138" y="132" width="18" height="70" fill="url(#colG)"/><rect x="138" y="132" width="18" height="7" fill="#B08A3E"/><rect x="138" y="195" width="18" height="7" fill="#B08A3E"/>
+<rect x="180" y="132" width="18" height="70" fill="url(#colG)"/><rect x="180" y="132" width="18" height="7" fill="#B08A3E"/><rect x="180" y="195" width="18" height="7" fill="#B08A3E"/>
+<rect x="222" y="132" width="18" height="70" fill="url(#colG)"/><rect x="222" y="132" width="18" height="7" fill="#B08A3E"/><rect x="222" y="195" width="18" height="7" fill="#B08A3E"/>
+<rect x="264" y="132" width="18" height="70" fill="url(#colG)"/><rect x="264" y="132" width="18" height="7" fill="#B08A3E"/><rect x="264" y="195" width="18" height="7" fill="#B08A3E"/>
+<rect x="286" y="132" width="18" height="70" fill="url(#colG)"/><rect x="286" y="132" width="18" height="7" fill="#B08A3E"/><rect x="286" y="195" width="18" height="7" fill="#B08A3E"/>
 </g>
-<g fill="#B08A3E"><rect x="100" y="134" width="16" height="8"/><rect x="140" y="134" width="16" height="8"/><rect x="180" y="134" width="16" height="8"/><rect x="220" y="134" width="16" height="8"/><rect x="260" y="134" width="16" height="8"/><rect x="300" y="134" width="16" height="8"/></g>
-<rect x="70" y="196" width="260" height="10" fill="#B08A3E"/>
-<text x="200" y="238" text-anchor="middle" fill="#EFE6D4" font-family="Tajawal,Arial" font-size="16" font-weight="700">جهة حكومية</text>
+
+<path d="M172 150h56v52h-56z" fill="#0A2022"/>
+<path d="M172 150c0-15 12-24 28-24s28 9 28 24z" fill="#0A2022"/>
+<path d="M184 202v-30c0-10 7-16 16-16s16 6 16 16v30" fill="none" stroke="#B08A3E" stroke-width="2"/>
+
+<rect x="66" y="208" width="268" height="10" fill="#B08A3E"/>
+<rect x="66" y="220" width="268" height="4" fill="#0A2022"/>
+
+<g>
+<rect x="152" y="228" width="96" height="26" rx="13" fill="#0A2022" opacity=".82"/>
+<circle cx="172" cy="241" r="4" fill="#B08A3E"/>
+<text x="185" y="246" fill="#F5EFDE" font-family="Tajawal,Arial" font-size="13" font-weight="700">جهة حكومية</text>
+</g>
 </svg>
