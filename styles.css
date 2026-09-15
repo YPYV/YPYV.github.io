@@ -101,6 +101,28 @@ main{margin-top:-58px;position:relative;z-index:2;padding-bottom:35px}
 @media(max-width:690px){.container{width:min(100% - 22px,1240px)}.nav{height:68px}.navlinks{display:none}.brand strong{font-size:17px}.hero{padding:34px 0 88px}.hero h1{font-size:32px}.hero p{font-size:14px}.stats{grid-template-columns:1fr 1fr}.emg-grid{grid-template-columns:repeat(3,1fr)}.category-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.results{grid-template-columns:1fr}.search{flex-direction:column}.search button{width:100%}.detail-grid{grid-template-columns:1fr}}
 /* الوضع الداكن التلقائي */
 @media (prefers-color-scheme: dark) {
+  /* تحسين وضوح النصوص في الوضع الداكن */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: var(--ink);
+  }
+
+  .section-title,
+  .section-heading,
+  .section-subtitle,
+  .card-title,
+  .card-name,
+  .category-title {
+    color: var(--ink) !important;
+  }
+
+  .section-subtitle,
+  .muted,
+  .card-meta,
+  .card-info {
+    color: var(--muted) !important;
+  }
+}
   :root {
     color-scheme: dark;
 
