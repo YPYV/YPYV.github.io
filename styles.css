@@ -109,3 +109,79 @@ main{margin-top:-58px;position:relative;z-index:2;padding-bottom:35px}
 
 @media(max-width:1060px){.hero{grid-template-columns:1fr}.hero-card{aspect-ratio:16/9;max-height:220px}.results{grid-template-columns:repeat(2,1fr)}.category-grid{grid-template-columns:repeat(3,1fr)}.emg-grid{grid-template-columns:repeat(3,1fr)}.filters{grid-template-columns:1fr 1fr 1fr}.nav-tag{display:none}}
 @media(max-width:690px){.container{width:min(100% - 22px,1240px)}.nav{height:68px}.navlinks{display:none}.brand strong{font-size:17px}.hero{padding:34px 0 88px}.hero h1{font-size:32px}.hero p{font-size:14px}.stats{grid-template-columns:1fr 1fr}.emg-grid{grid-template-columns:repeat(3,1fr)}.category-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.results{grid-template-columns:1fr}.search{flex-direction:column}.search button{width:100%}.detail-grid{grid-template-columns:1fr}}
+.report-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #163B3E;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #163B3E;
+  box-shadow: 0 0 0 3px rgba(22, 59, 62, 0.1);
+}
+
+.btn-submit {
+  background: #163B3E;
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 1rem;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #0f2a2d;
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-status {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.form-status.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-status.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
