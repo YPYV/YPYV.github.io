@@ -1,20 +1,20 @@
 
-const API="http://localhost:3001/api";
 const STATIC="data/directory.json";
 const $=id=>document.getElementById(id);
-const state={items:[]};
+const state={items:[],userLoc:null};
 
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
 const mapUrl=x=>x.plusCode&&x.plusCode!=="غير متوفر"?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.plusCode)}`:"";
 const telUrl=x=>{const p=String(x.phone||"").replace(/[^\d+]/g,"");return p&&p!=="+"?`tel:${p}`:""};
+function distanceKm(lat1,lng1,lat2,lng2){
+  const R=6371,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
 
 async function loadData(){
-  const isLocal=["localhost","127.0.0.1"].includes(location.hostname);
-  try{
-    if(!isLocal)throw 0;
-    const r=await fetch(`${API}/directory`);if(!r.ok)throw 0;state.items=(await r.json()).data||[]
-  }
-  catch{const r=await fetch(STATIC);if(!r.ok)throw new Error("تعذر تحميل البيانات");state.items=await r.json()}
+  const r=await fetch(STATIC);if(!r.ok)throw new Error("تعذر تحميل البيانات");
+  state.items=await r.json();
   populateCategoryFilter();updateStats();render();
 }
 function populateCategoryFilter(){
@@ -40,17 +40,45 @@ function filtered(){
   })
 }
 function render(){
-  const arr=filtered();
+  let arr=filtered();
+  if(state.userLoc){
+    const withLoc=[],withoutLoc=[];
+    arr.forEach(x=>{
+      if(typeof x.lat==="number"&&typeof x.lng==="number"){x._dist=distanceKm(state.userLoc.lat,state.userLoc.lng,x.lat,x.lng);withLoc.push(x)}
+      else withoutLoc.push(x)
+    });
+    withLoc.sort((a,b)=>a._dist-b._dist);
+    arr=[...withLoc,...withoutLoc];
+  }
   $("count").textContent=`عرض ${arr.length} من أصل ${state.items.length} منشأة`;
   if(!arr.length){$("results").innerHTML=`<div class="empty">لم نجد منشآت مطابقة لبحثك.</div>`;return}
   $("results").innerHTML=arr.map(x=>{const ok=String(x.verification).includes("🟢"),map=mapUrl(x);
-    return `<article class="card" data-type="${x.type}"><div class="card-cover"><img src="assets/cover-${x.type}.svg" alt=""></div><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}" title="${ok?"تم التحقق من المعلومات":"المعلومات بحاجة إلى مراجعة"}">${esc(x.verification)}</span></div>
-    <h3>${esc(x.name)}</h3><div class="meta">
+    const dist=typeof x._dist==="number"?`<span class="distance-badge">📍 ${x._dist<1?Math.round(x._dist*1000)+" م":x._dist.toFixed(1)+" كم"}</span>`:"";
+    return `<article class="card" data-type="${esc(x.type)}"><div class="card-cover"><img src="assets/cover-${esc(x.type)}.svg" alt=""></div><div class="card-top"><span class="chip">${x.type==="medical"?"🏥 طبي":"🏛️ حكومي"}</span><span class="badge ${ok?"ok":"warn"}" title="${ok?"تم التحقق من المعلومات":"المعلومات بحاجة إلى مراجعة"}">${esc(x.verification)}</span></div>
+    <h3>${esc(x.name)}${dist}</h3><div class="meta">
     <div class="meta-line"><span class="meta-ico">◉</span>${esc(x.category)}</div>
     <div class="meta-line"><span class="meta-ico">⌖</span>${esc(x.governorate)}</div>
-    </div><div class="card-foot"><span class="source">${esc(x.source)}</span><div style="display:flex;gap:6px"><button class="map-btn share-btn" data-id="${x.id}" aria-label="مشاركة عبر واتساب" title="مشاركة عبر واتساب">↗</button><button class="map-btn detail-btn" data-id="${x.id}">عرض التفاصيل</button>${map?`<button class="map-btn" onclick="window.open('${map}','_blank','noopener')" aria-label="فتح الموقع على الخريطة">الخريطة</button>`:""}</div></div></article>`
+    </div><div class="card-foot"><span class="source">${esc(x.source)}</span><div class="card-foot-actions"><button class="map-btn share-btn" data-id="${esc(x.id)}" aria-label="مشاركة عبر واتساب" title="مشاركة عبر واتساب">↗</button><button class="map-btn detail-btn" data-id="${esc(x.id)}">عرض التفاصيل</button>${map?`<button class="map-btn map-open-btn" data-map="${esc(map)}" aria-label="فتح الموقع على الخريطة">الخريطة</button>`:""}</div></div></article>`
   }).join("");
 }
+$("results").addEventListener("click",e=>{const b=e.target.closest(".map-open-btn");if(b)window.open(b.dataset.map,"_blank","noopener")});
+$("nearMe").addEventListener("click",()=>{
+  const btn=$("nearMe"),note=$("nearNote");
+  if(state.userLoc){state.userLoc=null;btn.setAttribute("aria-pressed","false");btn.textContent="📍 الأقرب مني";note.hidden=true;render();return}
+  if(!("geolocation" in navigator)){note.hidden=false;note.textContent="متصفحك لا يدعم تحديد الموقع الجغرافي.";return}
+  btn.textContent="⏳ جاري تحديد موقعك...";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    state.userLoc={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    btn.setAttribute("aria-pressed","true");btn.textContent="📍 الأقرب مني ✓";
+    const withCoords=state.items.filter(x=>typeof x.lat==="number").length;
+    note.hidden=false;note.textContent=`تم ترتيب النتائج حسب الأقرب لموقعك. ${withCoords} من أصل ${state.items.length} جهة عندها موقع جغرافي دقيق حالياً؛ الباقي بيظهر بترتيبه الطبيعي بعدها.`;
+    render();
+  },err=>{
+    btn.textContent="📍 الأقرب مني";
+    note.hidden=false;
+    note.textContent=err.code===1?"تم رفض إذن الوصول للموقع. فعّله من إعدادات المتصفح إذا حبيت تجرب هالميزة.":"تعذر تحديد موقعك حالياً، جرّب مرة تانية.";
+  },{enableHighAccuracy:true,timeout:10000});
+});
 function categoryFilter(action,button){
   document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));button.classList.add("active");
   const note=$("quick");$("category").value="";
@@ -89,7 +117,7 @@ $("results").addEventListener("click",e=>{
 $("heroBtn").addEventListener("click",()=>{$("search").value=$("heroSearch").value;render();$("directory").scrollIntoView({behavior:"smooth"})});
 $("heroSearch").addEventListener("keydown",e=>{if(e.key==="Enter")$("heroBtn").click()});
 $("heroSearch").addEventListener("input",()=>{$("search").value=$("heroSearch").value;render()});
-$("clear").addEventListener("click",()=>{["search","heroSearch"].forEach(id=>$(id).value="");["type","category","gov","verification"].forEach(id=>$(id).value="");document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));$("quick").textContent="اختر أحد الأقسام للوصول إليه مباشرة.";render()});
+$("clear").addEventListener("click",()=>{["search","heroSearch"].forEach(id=>$(id).value="");["type","category","gov","verification"].forEach(id=>$(id).value="");document.querySelectorAll(".category").forEach(b=>b.classList.remove("active"));$("quick").textContent="اختر أحد الأقسام للوصول إليه مباشرة.";state.userLoc=null;$("nearMe").setAttribute("aria-pressed","false");$("nearMe").textContent="📍 الأقرب مني";$("nearNote").hidden=true;render()});
 $("closeModal").addEventListener("click",()=>$("modal").classList.remove("open"));
 $("modal").addEventListener("click",e=>{if(e.target.id==="modal")$("modal").classList.remove("open")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("modal").classList.remove("open")});

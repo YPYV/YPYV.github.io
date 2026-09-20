@@ -1,4 +1,4 @@
-const CACHE = "dalil-v1";
+const CACHE = "dalil-v3";
 const CORE = [
   "./","index.html","styles.css","app.js","manifest.json",
   "data/directory.json",
@@ -7,6 +7,11 @@ const CORE = [
   "assets/imaging.svg","assets/directorates.svg","assets/citizens.svg",
   "assets/cover-medical.svg","assets/cover-government.svg",
   "assets/icon-192.png","assets/icon-512.png"
+];
+
+// files that change often -> always try the network first, cache is only a fallback for offline use
+const NETWORK_FIRST = [
+  "./","index.html","styles.css","app.js","manifest.json","data/directory.json"
 ];
 
 self.addEventListener("install", e=>{
@@ -22,19 +27,20 @@ self.addEventListener("fetch", e=>{
   const url=new URL(e.request.url);
   if(url.origin!==location.origin)return; // let cross-origin (fonts, hero photo) pass through normally
 
-  // data file: try network first so the list stays fresh, fall back to cache offline
-  if(url.pathname.endsWith("data/directory.json")){
+  const isNetworkFirst = NETWORK_FIRST.some(p=>url.pathname===location.pathname.replace(/[^/]*$/,"")+p.replace("./","") || url.pathname.endsWith(p.replace("./","")));
+
+  if(isNetworkFirst){
     e.respondWith(
-      fetch(e.request).then(res=>{caches.open(CACHE).then(c=>c.put(e.request,res.clone()));return res;})
+      fetch(e.request,{cache:"no-store"}).then(res=>{if(res.ok)caches.open(CACHE).then(c=>c.put(e.request,res.clone()));return res;})
       .catch(()=>caches.match(e.request))
     );
     return;
   }
 
-  // everything else: cache first, then network
+  // rarely-changing assets (icons/images): cache first, then network
   e.respondWith(
     caches.match(e.request).then(cached=>cached||fetch(e.request).then(res=>{
-      caches.open(CACHE).then(c=>c.put(e.request,res.clone()));return res;
+      if(res.ok)caches.open(CACHE).then(c=>c.put(e.request,res.clone()));return res;
     }))
   );
 });

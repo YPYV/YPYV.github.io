@@ -10,7 +10,9 @@
     "plusCode": "G72W+844",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business + مصدر حديث"
+    "source": "Business + مصدر حديث",
+    "lat": 33.5007659,
+    "lng": 36.2953433
   },
   {
     "id": 2,
@@ -23,7 +25,9 @@
     "plusCode": "G749+5VG",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business + UNHCR"
+    "source": "Business + UNHCR",
+    "lat": 33.5054312,
+    "lng": 36.2696941
   },
   {
     "id": 3,
@@ -36,7 +40,9 @@
     "plusCode": "G767+R8X",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business + UNHCR"
+    "source": "Business + UNHCR",
+    "lat": 33.5121084,
+    "lng": 36.2633502
   },
   {
     "id": 4,
@@ -49,7 +55,9 @@
     "plusCode": "G8G4+38W",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5252464,
+    "lng": 36.3058243
   },
   {
     "id": 5,
@@ -62,7 +70,9 @@
     "plusCode": "G7HV+P43",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.529252,
+    "lng": 36.2928016
   },
   {
     "id": 6,
@@ -75,7 +85,9 @@
     "plusCode": "G7C9+283",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5200048,
+    "lng": 36.2683027
   },
   {
     "id": 7,
@@ -88,7 +100,9 @@
     "plusCode": "F8R2+43X",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.4903733,
+    "lng": 36.3002447
   },
   {
     "id": 8,
@@ -101,7 +115,9 @@
     "plusCode": "G8C8+7JG",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5206851,
+    "lng": 36.3165738
   },
   {
     "id": 9,
@@ -114,7 +130,9 @@
     "plusCode": "F7QV+GPJ",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.4888329,
+    "lng": 36.2942734
   },
   {
     "id": 10,
@@ -127,7 +145,9 @@
     "plusCode": "G7MX+47X",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5328512,
+    "lng": 36.2982252
   },
   {
     "id": 11,
@@ -140,7 +160,9 @@
     "plusCode": "G78Q+2Q2",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5150002,
+    "lng": 36.289392
   },
   {
     "id": 12,
@@ -153,7 +175,9 @@
     "plusCode": "F8X2+XVQ",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "بيانات منشأة سابقة موثقة"
+    "source": "بيانات منشأة سابقة موثقة",
+    "lat": 33.5019239,
+    "lng": 36.3019445
   },
   {
     "id": 13,
@@ -166,7 +190,9 @@
     "plusCode": "G8W4+MQW",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "دليل طبي + مصدر منشأة"
+    "source": "دليل طبي + مصدر منشأة",
+    "lat": 33.5467465,
+    "lng": 36.3069606
   },
   {
     "id": 14,
@@ -179,7 +205,9 @@
     "plusCode": "G6F8+5JP",
     "hours": "09:00–21:00",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5229719,
+    "lng": 36.2165849
   },
   {
     "id": 15,
@@ -192,7 +220,9 @@
     "plusCode": "G7CV+HRH",
     "hours": "09:00–22:00",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5216066,
+    "lng": 36.2943706
   },
   {
     "id": 16,
@@ -205,7 +235,9 @@
     "plusCode": "G6GJ+99R",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.525983,
+    "lng": 36.2308765
   },
   {
     "id": 17,
@@ -231,7 +263,9 @@
     "plusCode": "G8W9+GPR",
     "hours": "08:30–20:00، الجمعة مغلق",
     "verification": "🟢 موثقة",
-    "source": "موقع المنشأة + Business"
+    "source": "موقع المنشأة + Business",
+    "lat": 33.5463734,
+    "lng": 36.319279
   },
   {
     "id": 19,
@@ -244,7 +278,9 @@
     "plusCode": "G7FQ+FFF",
     "hours": " 7:30–7:30",
     "verification": "🟢 موثقة",
-    "source": "Business"
+    "source": "Business",
+    "lat": 33.5236928,
+    "lng": 36.2886735
   },
   {
     "id": 20,
@@ -270,7 +306,9 @@
     "plusCode": "غير متوفر",
     "hours": "24 ساعة",
     "verification": "🟢 موثقة",
-    "source": "SANA 2026 + دليل طبي"
+    "source": "SANA 2026 + دليل طبي",
+    "lat": 33.4287208,
+    "lng": 36.0664407
   },
   {
     "id": 22,
@@ -283,7 +321,9 @@
     "plusCode": "C5P8+VVF,",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.4371754,
+    "lng": 36.1671776
   },
   {
     "id": 23,
@@ -309,7 +349,9 @@
     "plusCode": "P435+7P4",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.7031351,
+    "lng": 36.1093176
   },
   {
     "id": 25,
@@ -322,7 +364,9 @@
     "plusCode": "P4G3+855",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.7125245,
+    "lng": 36.1129085
   },
   {
     "id": 26,
@@ -335,7 +379,9 @@
     "plusCode": "XG6W+97V",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 34.026542,
+    "lng": 36.7179913
   },
   {
     "id": 27,
@@ -348,7 +394,9 @@
     "plusCode": "H9CG+RFW",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.5557913,
+    "lng": 36.3630063
   },
   {
     "id": 28,
@@ -361,7 +409,9 @@
     "plusCode": "G82C+FPC",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.4695805,
+    "lng": 36.330377
   },
   {
     "id": 29,
@@ -374,7 +424,9 @@
     "plusCode": "غير متوفر",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.51175,
+    "lng": 36.3448788
   },
   {
     "id": 30,
@@ -387,7 +439,9 @@
     "plusCode": "F674+97C",
     "hours": "08:30–02:30",
     "verification": "🟢 موثقة",
-    "source": "Medicalsy"
+    "source": "Medicalsy",
+    "lat": 33.4675174,
+    "lng": 36.19772
   },
   {
     "id": 31,

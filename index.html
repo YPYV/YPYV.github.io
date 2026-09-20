@@ -2,6 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://commons.wikimedia.org https://upload.wikimedia.org; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>دليل دمشق وريف دمشق</title>
 <meta name="description" content="الدليل الطبي والحكومي لدمشق وريف دمشق">
 <link rel="canonical" href="https://ypyv.github.io/">
@@ -18,9 +20,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lateef:wght@400;700&family=Almarai:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"دليل دمشق وريف دمشق","alternateName":"Dalil Damascus & Rif Dimashq","url":"https://ypyv.github.io/","description":"دليل الخدمات الطبية والدوائر الحكومية في دمشق وريف دمشق","inLanguage":"ar"}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#directory">تخطي إلى المحتوى الرئيسي</a>
 <header class="header" id="home"><div class="container">
 <nav class="nav">
 <a class="brand" href="#home"><img class="logo" src="assets/logo.svg" alt="لوقو دليل دمشق وريف دمشق"><div><strong>دليل <span>دمشق</span> وريف دمشق</strong><small>كل ما تحتاجه في مكان واحد</small></div></a>
@@ -71,7 +77,9 @@
 <select class="field" id="gov" aria-label="فلترة حسب المحافظة"><option value="">المحافظة: الكل</option><option value="دمشق">دمشق</option><option value="ريف دمشق">ريف دمشق</option><option value="دمشق/ريف دمشق">دمشق وريف دمشق معاً</option></select>
 <select class="field" id="verification" aria-label="فلترة حسب حالة التوثيق"><option value="">الحالة: الكل</option><option value="🟢 موثقة">موثقة</option><option value="🟡 تحتاج تحديث">تحتاج تحديث</option></select>
 <button class="clear" id="clear">إعادة ضبط</button>
+<button class="near-btn" id="nearMe" type="button" aria-pressed="false">📍 الأقرب مني</button>
 </div>
+<div class="near-note" id="nearNote" hidden></div>
 <div class="legend">🟢 موثقة = تم التحقق من المعلومات · 🟡 تحتاج تحديث = المعلومات بحاجة إلى مراجعة</div>
 <div class="error" id="error" role="alert"></div>
 <div class="results" id="results"></div>
@@ -79,9 +87,9 @@
 
 <section class="panel" id="about">
 <div class="panel-head"><div><h2 class="title">عن الدليل</h2><div class="sub">الوضوح والموثوقية أهم من كثرة المعلومات</div></div></div>
-<p class="sub" style="font-size:13px;line-height:1.9;color:var(--ink)">دليل دمشق وريف دمشق هو منصة تساعد المستخدمين على الوصول إلى الخدمات الطبية والدوائر الحكومية في دمشق وريف دمشق، مع عرض معلومات أساسية عن المنشآت ومواقعها ووسائل التواصل معها.</p>
-<p class="sub" style="font-size:12px;line-height:1.9">لا يتم ملء المعلومات الناقصة بالتخمين. تظهر حالة التحقق لكل جهة، ويُفضّل مراجعة الهاتف والدوام قبل الاعتماد النهائي. بعد إعادة هيكلة الحكومة السورية بالكامل في آذار 2025 (دمج ومستحدثات وزارية)، ما زلنا نراجع جهات عديدة لمطابقتها مع الهيكل الجديد؛ الجهات الظاهر عليها "تحتاج تحديث" لم تُصادق بعد.</p>
-<div class="last-update">آخر تحديث للبيانات: <strong>2026-9-14</strong></div>
+<p class="sub about-lead">دليل دمشق وريف دمشق هو منصة تساعد المستخدمين على الوصول إلى الخدمات الطبية والدوائر الحكومية في دمشق وريف دمشق، مع عرض معلومات أساسية عن المنشآت ومواقعها ووسائل التواصل معها.</p>
+<p class="sub about-note">لا يتم ملء المعلومات الناقصة بالتخمين. تظهر حالة التحقق لكل جهة، ويُفضّل مراجعة الهاتف والدوام قبل الاعتماد النهائي. بعد إعادة هيكلة الحكومة السورية بالكامل في آذار 2025 (دمج ومستحدثات وزارية)، ما زلنا نراجع جهات عديدة لمطابقتها مع الهيكل الجديد؛ الجهات الظاهر عليها "تحتاج تحديث" لم تُصادق بعد.</p>
+<div class="last-update">آخر تحديث للبيانات: <strong>يُحدَّد لاحقاً</strong></div>
 <a class="report-link" href="https://wa.me/?text=لاحظت%20معلومة%20خاطئة%20بدليل%20دمشق%20وريف%20دمشق:%20" target="_blank" rel="noopener">⚑ لاحظت معلومة خاطئة؟ بلّغنا عنها</a>
 </section>
 </main>
@@ -99,6 +107,6 @@
 <div class="modal-body" id="modalBody"></div>
 </div></div>
 
-<script src="app.js?v=15"></script>
+<script src="app.js"></script>
 </body>
 </html>
